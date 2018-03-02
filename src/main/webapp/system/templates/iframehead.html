@@ -1,0 +1,42 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<heads th:fragment="iframehead">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=11" />
+
+    <!--框架必需start-->
+    <link th:href="@{${sysPara.proPath}+'css/import_main.css'}" rel="stylesheet" type="text/css" />
+    <link th:href="@{${sysPara.proPath}+'skins/blue/style.css'}" rel="stylesheet" type="text/css" id="theme" themeColor="blue" positionTarget="positionContent"  ie6detect="sample_html/templete/detect.html"/>
+    <link th:href="@{${sysPara.proPath}+'main_html/skin/style.css'}" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" th:src="@{${sysPara.proPath}+'js/jquery.js'}"></script>
+    <script type="text/javascript" th:src="@{${sysPara.proPath}+'js/language/cn.js'}"></script>
+    <script type="text/javascript" th:src="@{${sysPara.proPath}+'js/framework.js'}"></script>
+    <!--框架必需end-->
+    <!-- 日期控件start -->
+    <script type="text/javascript" th:src="@{${sysPara.proPath}+'js/form/datePicker/WdatePicker.js'}"></script>
+    <!-- 日期控件end -->
+
+    <!-- 树组件start -->
+    <script type="text/javascript" th:src="@{${sysPara.proPath}+'js/tree/ztree/ztree.js'}"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{${sysPara.proPath}+'js/tree/ztree/ztree.css'}">
+    <!-- 树组件end -->
+
+    <!-- 树形下拉框start -->
+    <script type="text/javascript" th:src="@{${sysPara.proPath}+'js/form/selectTree.js'}"></script>
+    <!-- 树形下拉框end -->
+
+    <!-- 表单验证start -->
+    <script th:src="@{${sysPara.proPath}+'js/form/validationRule.js'}" type="text/javascript"></script>
+    <script th:src="@{${sysPara.proPath}+'js/form/validation.js'}" type="text/javascript"></script>
+    <!-- 表单验证end -->
+
+
+
+
+</heads>
+
+<body>
+<div	th:fragment="copyright">						&copy;	2018	Created by zxl_lls@foxmail.com		</div>
+</body>
+</html>

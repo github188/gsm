@@ -1,0 +1,104 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="system/templates/iframehead :: iframehead">
+	<title></title>
+
+</head>
+<body>
+	<div class="page_content">
+	<form id="form1">
+	<table class="tableStyle" formMode="transparent">
+		<!--<input type="hidden" name="bo.id" value="<s:property value='bo.id' />" />-->
+		<input type="hidden" name="type" id="type"  />
+		<input type="hidden" name="operType" id="operType"  />
+		<tr>
+			<td width="150">名称：</td><td><input  type="text" id="name" disabled="true"  /><span class="star">*</span></td>
+		</tr>
+
+		<tr>
+			<td>数量：</td><td><input type="text" name="quantity" id="quantity" class="validate[required,custom[onlyNumberWide]]"/><span class="star">*</span></td>
+		</tr>
+		<tr>
+			<td>客户：</td><td><input type="text" name="cusId" id="cusId" class="validate[required]"/><span class="star">*</span></td>
+		</tr>
+		<tr>
+			<td>位置：</td><td><input type="text" name="saveAddr" id="saveAddr" class="validate[required]" /><span class="star">*</span></td>
+		</tr>
+		<tr>
+			<td>执行人：</td><td><input type="text" name="operatorId" id="operatorId" class="validate[required]" /><span class="star">*</span></td>
+		</tr>
+		<tr>
+			<td>责任人：</td><td><input type="text" name="principleId" id="principleId" class="validate[required]" /><span class="star">*</span></td>
+		</tr>
+		<tr>
+			<td>备注：</td><td><input type="text" name="remark" id="remark" class="validate[required]" /><span class="star">*</span></td>
+		</tr>
+
+		<!--<tr>-->
+			<!--<td>所属部门：</td>-->
+			<!--<td>-->
+			<!--<div class="selectTree validate[required]"  data='{"treeNodes":[{ "id":"1", "parentId":"0", "name":"部门1", "open": "true"},{ "id":"2", "parentId":"0", "name":"部门2", "open": "true"}]}'></div><span class="star">*</span>	</td>-->
+		<!--</tr>-->
+		<!--<tr>-->
+			<!--<td>性别：</td><td><div style="width:120px;"><input type="radio" id="radio-1" name="ra" value="radio-1" /><label for="radio-1" class="hand">男</label>-->
+				<!--<input type="radio" id="radio-2" name="ra" value="radio-2"/><label for="radio-2" class="hand">女</label></div></td>-->
+		<!--</tr>-->
+		<!--<tr>-->
+			<!--<td>入职时间：</td><td><input  type="text" class="date"/></td>-->
+		<!--</tr>-->
+		<!--<tr>-->
+			<!--<td>学历：</td><td><select selectedValue="2"  data='{"list":[{"value":"1","key":"大专"},{"value":"2","key":"本科"},{"value":"3","key":"硕士"},{"value":"4","key":"博士"}]}'></select></td>-->
+		<!--</tr>-->
+	</table>
+	</form>
+	</div>
+	<script th:inline="javascript" type="text/javascript">
+        var stock = [[${stock}]];
+//        var thisName = GetUrlParam('name');
+//        var thisId = GetUrlParam('id');
+//        var thisType= GetUrlParam('type');
+
+        $("#type").val(stock.id);
+        $("#name").val(stock.name);
+        $("#operType").val(stock.type);
+		function submitHandler(status){
+            var valid = $("#form1").validationEngine({returnIsValid: true,showOnMouseOver:false});
+
+            if(valid){
+                $.ajax({
+                    //几个参数需要注意一下
+                    type: "POST",//方法类型
+                    dataType: "json",//预期服务器返回的数据类型
+                    url: "http://localhost:8080/gms/stockManage/oper" ,//url
+                    async: false,
+                    data: $('#form1').serialize(),
+                    success: function (result) {
+                        console.log(result);//打印服务端返回的数据(调试用)
+                        if (result.status == 200) {
+                            top.Toast("showNoticeToast", "操作成功");
+                            //console.log()
+                            parent.$("#frmright")[0].contentWindow.location.reload();
+
+                            top.Dialog.close();
+                        }
+                        ;
+                    },
+                    error : function(e) {
+                        console.log(e);
+
+                    }
+                });
+
+            }else{
+                top.Toast("showErrorToast", "请填写正确数据！");
+			}
+			//top.Toast("showNoticeToast", "通过异步提交表单来新增数据。见JAVA版或.NET版演示。");
+
+			console.log();
+
+		}
+	</script>
+	</body>
+</html>

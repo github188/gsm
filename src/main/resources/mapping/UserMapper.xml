@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.zxl.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="org.zxl.model.User">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="del_flag" jdbcType="VARCHAR" property="delFlag" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="acc_name" jdbcType="VARCHAR" property="accName" />
+    <result column="acc_pass" jdbcType="VARCHAR" property="accPass" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, name, phone, create_date, del_flag, update_date, acc_name, acc_pass
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByAccName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where acc_name = #{accName,jdbcType=VARCHAR}
+  </select>
+  <select id="getUserList" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from t_user
+    where del_flag = '0'
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="org.zxl.model.User">
+    insert into t_user (id, name, phone, 
+      create_date, del_flag, update_date, 
+      acc_name, acc_pass)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{delFlag,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{accName,jdbcType=VARCHAR}, #{accPass,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.zxl.model.User">
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="delFlag != null">
+        del_flag,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="accName != null">
+        acc_name,
+      </if>
+      <if test="accPass != null">
+        acc_pass,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        #{delFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accName != null">
+        #{accName,jdbcType=VARCHAR},
+      </if>
+      <if test="accPass != null">
+        #{accPass,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.zxl.model.User">
+    update t_user
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="delFlag != null">
+        del_flag = #{delFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accName != null">
+        acc_name = #{accName,jdbcType=VARCHAR},
+      </if>
+      <if test="accPass != null">
+        acc_pass = #{accPass,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.zxl.model.User">
+    update t_user
+    set name = #{name,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      del_flag = #{delFlag,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      acc_name = #{accName,jdbcType=VARCHAR},
+      acc_pass = #{accPass,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+</mapper>
